@@ -28,3 +28,30 @@ decodeModified = foldr func []
         func (Single x) ac = x:ac 
         func (Multiple n x) ac = (replicate n x)++ac
 
+--14
+dupli::[a]->[a]
+dupli = foldr (\x ac->x:x:ac) []
+
+--15
+repli::[a]->Int->[a]
+repli list num = foldr (\x ac->(replicate num x)++ac) [] list
+
+--16
+dropEvery::[a]->Int->[a]
+dropEvery [] _ = []
+dropEvery list num = (take (num-1) list)++dropEvery (drop num list) num
+
+--17
+split::[a]->Int->([a],[a])
+split list num = ((take num list),(drop num list))
+
+split'::[a]->Int->([a],[a])
+split' list num = foldr func ([],[]) list
+    where
+        leftLength=length list - num
+        func x ([],[]) = ([],[x])
+        func x ([],left) = if length left >= leftLength
+            then ([x],left) else ([],x:left)
+        func x (right,left) = (x:right,left)
+
+
