@@ -54,4 +54,17 @@ split' list num = foldr func ([],[]) list
             then ([x],left) else ([],x:left)
         func x (right,left) = (x:right,left)
 
+--18
+slice::[a]->Int->Int->[a]
+slice lst begin end = take (end-begin+1) $ drop (begin-1) lst
 
+--19
+rotate::[a]->Int->[a]
+rotate lst 0 = lst
+rotate lst n
+    | n>0 = rotate ((tail lst)++[head lst]) (n-1)
+    | n<0 = rotate ([last lst]++(init lst)) (n+1)
+
+--20
+removeAt::Int->[a]->(a,[a])
+removeAt n lst = (lst!!(n-1),(take (n-1) lst)++(drop n lst))
