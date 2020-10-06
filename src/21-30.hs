@@ -64,11 +64,19 @@ rnd_permu lst = func lst []
             let rest = (take rnd l)++(drop (rnd + 1) l)
             func rest (x:r) 
 
+--26
+combinations::Int->[a]->[[a]]
+combinations 0 _ = [[]]
+combinations n xs = [ y:ys | y:xs' <- tails xs , ys <- combinations (n-1) xs'] 
+
+combinations'::Int->[a]->[[a]]
+combinations' 0 _ = return []
+combinations' n xs = do
+    y:xs' <- tails xs
+    ys <- combinations' (n-1) xs'
+    return (y:ys)
 
 
+--27,28は問題文が長いです。
 
-
-        
-
-    
     
